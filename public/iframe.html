@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+IFRAME
+
+<div id="c"></div>
+<div id="i"></div>
+<div id="o">
+    <button id="s">send</button>
+</div>
+<script>
+  let contentEl = document.getElementById('c');
+  let inputEl = document.getElementById('i');
+  let outputButtonEl = document.getElementById('s');
+  let parent;
+
+  window.addEventListener("message", receiveMessage, false);
+  function receiveMessage(event)
+  {
+    console.log('iframe input');
+    console.log(event);
+    inputEl.innerHTML = JSON.stringify(event);
+    parent = event.source;
+  }
+
+  outputButtonEl.onclick = function () {
+    let message = 'TEST FROM IFRAME';
+    parent.postMessage(message, '*',);
+  };
+</script>
+
+/IFRAME
+</body>
+</html>
